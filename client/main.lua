@@ -96,8 +96,9 @@ AddEventHandler('qb-shoplifting:client:doStuff', function(coords)
     }
 
     if GlobalTimer == 0 then
+           TriggerServerEvent('qb-shoplifting:server:sendAlert', alertData, streetLabel, coords)
 
-        QBCore.Functions.Progressbar('shopliftbar', 'Shoplifting...', 5000, false, true, {
+        QBCore.Functions.Progressbar('shopliftbar', 'Shoplifting...', 7000, false, false, {
             disableMovement = true,
             disableCarMovement = true,
             disableMouse = false,
@@ -110,15 +111,13 @@ AddEventHandler('qb-shoplifting:client:doStuff', function(coords)
         function() -- Play When Done
             completedJob = true
             firstComplete = true
-                TriggerServerEvent('qb-shoplifting:server:sendAlert', alertData, streetLabel, coords)
+            ClearPedTasks(ped)
         end)
 
         function sWord() -- Play When Cancel
-            QBCore.Functions.Notify('You Stopped Shoplifting', 'error', 5000) 
+
         end
-        Wait(5000)
-        ClearPedTasks(ped)
-        FreezeEntityPosition(player, false)
+        Wait(7000)
         itemToGive = Config.RewardItems[math.random(1, #Config.RewardItems)]
         TriggerServerEvent('qb-shoplifting:server:RewardItem', itemToGive.item)
         QBCore.Functions.Notify('You Stole ' .. itemToGive.label .. '!', 'success', 5000)

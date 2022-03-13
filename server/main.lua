@@ -1,8 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-
 local src = source
 
-TriggerEvent('QBCore:GetObject')
 
 RegisterServerEvent('qb-shoplifting:server:RewardItem')
 AddEventHandler('qb-shoplifting:server:RewardItem', function(itemToGive)
@@ -13,5 +11,6 @@ AddEventHandler('qb-shoplifting:server:RewardItem', function(itemToGive)
 end)
 
 RegisterNetEvent('qb-shoplifting:server:sendAlert', function(alertData, streetLabel, coords)
+    print("Cops Called")
     TriggerClientEvent("qb-phone:client:addPoliceAlert", -1, alertData)
 end)
